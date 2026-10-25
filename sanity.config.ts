@@ -13,7 +13,7 @@ const singletonActions = new Set(["publish", "discardChanges", "restore"]);
 
 export default defineConfig({
   name: "khushboo-portfolio",
-  title: "Khushboo Punjani",
+  title: "Khushboo Portfolio",
   basePath: "/studio",
   projectId,
   dataset,
