@@ -5,6 +5,7 @@ import { Gallery } from "@/components/Gallery";
 import { Hero } from "@/components/home/Hero";
 import { LogoMarquee } from "@/components/LogoMarquee";
 import { SanityImg } from "@/components/Media";
+import { PersonJsonLd } from "@/components/PersonJsonLd";
 import { PageTransition } from "@/components/motion/PageTransition";
 import { WorkList } from "@/components/WorkList";
 import { pad } from "@/lib/format";
@@ -21,6 +22,7 @@ export default async function Home() {
   return (
     <PageTransition>
       <div>
+        <PersonJsonLd settings={settings} about={about} role={current?.role} company={current?.company} />
         <Hero
           headline={about.headline}
           role={current && `${current.role}, ${current.company}`}
