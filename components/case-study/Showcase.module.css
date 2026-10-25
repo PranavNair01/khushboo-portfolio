@@ -1,0 +1,124 @@
+.section {
+  padding: 100px var(--gutter) 120px;
+  overflow: hidden;
+}
+
+.head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.bar {
+  grid-column: 1 / -1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* The live counter and progress line only mean something while pinned. */
+.section:not([data-pinned]) .current,
+.section:not([data-pinned]) .bar {
+  display: none;
+}
+
+.barFill {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* ---------- default: grid (phones, reduced motion) ---------- */
+.track {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  grid-auto-flow: dense;
+  gap: 32px 20px;
+  align-items: start;
+}
+
+.item {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.frame {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: rgb(20 20 20 / 0.06);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-out);
+}
+
+.frame:hover .media {
+  transform: scale(1.04);
+}
+
+.reel .frame {
+  aspect-ratio: 9 / 16;
+}
+
+.portrait .frame {
+  aspect-ratio: 4 / 5;
+}
+
+.square .frame {
+  aspect-ratio: 1;
+}
+
+.landscape {
+  grid-column: span 2;
+}
+
+.landscape .frame {
+  aspect-ratio: 16 / 9;
+}
+
+/* ---------- pinned: one row that slides sideways ---------- */
+.section[data-pinned] {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: calc(var(--header-h) + 24px) 40px;
+}
+
+.section[data-pinned] .track {
+  display: flex;
+  align-items: flex-end;
+  gap: 28px;
+  width: auto;
+  will-change: transform;
+}
+
+.section[data-pinned] .item {
+  flex: 0 0 auto;
+}
+
+/* Every piece shares one height; widths follow each format. */
+.section[data-pinned] .frame {
+  height: min(62dvh, 640px);
+  width: auto;
+}
+
+.section[data-pinned] .landscape {
+  grid-column: auto;
+}
+
+@media (max-width: 700px) {
+  .landscape {
+    grid-column: auto;
+  }
+}

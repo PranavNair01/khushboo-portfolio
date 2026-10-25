@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { InlineScript } from "@/components/InlineScript";
 import { Cursor } from "@/components/motion/Cursor";
 import { Preloader, preloaderScript } from "@/components/motion/Preloader";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
@@ -28,7 +29,7 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
   return (
     <div id="top" className={`${fontVariables} ${s.site}`}>
       {/* Must run before anything paints; decides whether the intro plays. */}
-      <script dangerouslySetInnerHTML={{ __html: preloaderScript }} />
+      <InlineScript html={preloaderScript} />
       <Preloader />
       <SmoothScroll />
       <Cursor />

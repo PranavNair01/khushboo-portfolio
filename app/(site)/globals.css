@@ -119,6 +119,11 @@ html.has-cursor textarea {
   will-change: transform;
 }
 
+/* Elements that animate in from nothing stay hidden until their script takes over. */
+html[data-motion] [data-reveal-pending] {
+  visibility: hidden;
+}
+
 /* While the intro plays: no scrolling, and page animations wait for the reveal. */
 html[data-preloading] {
   overflow: hidden;

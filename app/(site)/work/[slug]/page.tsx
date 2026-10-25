@@ -2,7 +2,8 @@ import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Gallery } from "@/components/Gallery";
+import { NextBrand } from "@/components/case-study/NextBrand";
+import { Showcase } from "@/components/case-study/Showcase";
 import { Media } from "@/components/Media";
 import { PageTransition, Shared, sharedName } from "@/components/motion/PageTransition";
 import { pad } from "@/lib/format";
@@ -114,29 +115,9 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
           </section>
         )}
 
-        {pieces.length > 0 && (
-          <section className={s.work} aria-label={`${brand.name} work`}>
-            <div className={s.workHead}>
-              <span className="label">The work</span>
-              <span className="label">({pad(pieces.length)})</span>
-            </div>
-            <Gallery items={pieces} />
-          </section>
-        )}
+        {pieces.length > 0 && <Showcase items={pieces} />}
 
-        {next && next._id !== brand._id && (
-          <Link
-            href={`/work/${next.slug}`}
-            className={s.next}
-            data-cursor="Next"
-            style={{ "--next": next.color ?? "var(--ink)" } as CSSProperties}
-          >
-            <span className="label">Next case study</span>
-            <span className={`display ${s.nextName}`}>
-              {next.name} <span aria-hidden>→</span>
-            </span>
-          </Link>
-        )}
+        {next && next._id !== brand._id && <NextBrand slug={next.slug} name={next.name} color={next.color} />}
       </article>
     </PageTransition>
   );

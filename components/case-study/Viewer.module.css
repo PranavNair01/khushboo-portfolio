@@ -1,0 +1,89 @@
+.viewer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 20px var(--gutter);
+  border: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 16px;
+  background: rgb(14 14 14 / 0.96);
+  color: var(--paper);
+}
+
+.viewer:not([open]) {
+  display: none;
+}
+
+.viewer::backdrop {
+  background: transparent;
+}
+
+.top,
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.close,
+.nav {
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+}
+
+.nav {
+  width: 56px;
+  height: 56px;
+  border: 1px solid rgb(241 238 232 / 0.3);
+  border-radius: 50%;
+  font-size: 20px;
+  transition:
+    background 0.3s,
+    color 0.3s;
+}
+
+.nav:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.stage {
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  touch-action: pan-y;
+}
+
+.piece {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  animation: pieceIn 0.5s var(--ease-out);
+}
+
+/* Fill the stage, keeping proportions (many source files are small, so scale them up). */
+.piece,
+.media {
+  width: 100%;
+}
+
+.media {
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes pieceIn {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}

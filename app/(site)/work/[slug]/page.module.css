@@ -118,64 +118,6 @@
   color: var(--brand);
 }
 
-/* ---------- work ---------- */
-.work {
-  padding: 100px var(--gutter) 120px;
-}
-
-.workHead {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 16px;
-  margin-bottom: 40px;
-  border-bottom: 1px solid var(--ink);
-}
-
-/* ---------- next case study ---------- */
-.next {
-  position: relative;
-  display: grid;
-  gap: 12px;
-  padding: 80px var(--gutter);
-  border-top: 1px solid var(--rule);
-  isolation: isolate;
-  transition: color 0.4s;
-}
-
-.next::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--next);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.6s var(--ease-in-out);
-  z-index: -1;
-}
-
-.next:hover {
-  color: #fff;
-}
-
-.next:hover::before {
-  transform: scaleY(1);
-}
-
-.nextName {
-  font-size: clamp(56px, 10vw, 170px);
-  line-height: 0.9;
-  letter-spacing: -0.04em;
-}
-
-.nextName span {
-  display: inline-block;
-  transition: transform 0.5s var(--ease-out);
-}
-
-.next:hover .nextName span {
-  transform: translateX(0.15em) rotate(-45deg);
-}
-
 @media (max-width: 700px) {
   .hero {
     min-height: 70dvh;
