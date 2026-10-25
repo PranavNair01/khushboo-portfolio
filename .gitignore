@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 !.env.example
+
+# raw portfolio assets (large, not for the public repo)
+/content-src/
