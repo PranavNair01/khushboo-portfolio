@@ -38,7 +38,6 @@
   font-size: clamp(16px, 1.6vw, 22px);
   line-height: 1.45;
   max-width: 560px;
-  opacity: 0.85;
 }
 
 .cta {
