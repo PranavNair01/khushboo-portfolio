@@ -26,10 +26,11 @@ const portfolioQuery = defineQuery(`{
 }`);
 
 // Everything the site shows, fetched in one round trip and cached.
-// Publishing in the Studio will revalidate the "sanity" tag (wired up in build step 6).
+// Publishing in the Studio revalidates the "sanity" tag right away (app/api/revalidate);
+// the hourly lifetime is only a safety net in case a webhook is missed.
 export async function getPortfolio(): Promise<Portfolio> {
   "use cache";
-  cacheLife("minutes");
+  cacheLife("hours");
   cacheTag("sanity");
   return client.fetch<Portfolio>(portfolioQuery);
 }

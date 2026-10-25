@@ -77,10 +77,12 @@ export function EditingHeadline({ lead, words, className, finalClassName }: Prop
     <p
       ref={ref}
       className={`${styles.headline} ${className ?? ""}`}
-      aria-label={`${lead} ${words[final]}.`}
       data-reveal-pending
       suppressHydrationWarning
     >
+      <span className="visually-hidden">
+        {lead} {words[final]}.
+      </span>
       <span aria-hidden>{lead} </span>
       {words.map((word, i) => (
         <span

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { pad } from "@/lib/format";
 import s from "./Header.module.css";
 
@@ -25,15 +25,28 @@ export function Header() {
   const current = pageIndex(pathname);
   const close = () => setOpen(false);
 
+  // Esc closes the mobile menu.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <header className={s.header} data-open={open}>
-      <Link href="/" className={s.mark} onClick={close} aria-label="Khushboo Punjani, home">
-        K—P
+      <Link href="/" className={s.mark} onClick={close}>
+        K—P<span className="visually-hidden"> Khushboo Punjani, home</span>
       </Link>
 
       <nav className={s.nav} aria-label="Main">
         {pages.slice(1).map((p) => (
-          <Link key={p.href} href={p.href} className={s.link} aria-current={pathname.startsWith(p.href) ? "page" : undefined}>
+          <Link
+            key={p.href}
+            href={p.href}
+            className={s.link}
+            aria-current={pathname.startsWith(p.href) ? "page" : undefined}
+          >
             {p.label}
           </Link>
         ))}
