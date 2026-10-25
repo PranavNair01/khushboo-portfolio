@@ -1,0 +1,178 @@
+/* ---------- hero in the brand's colour ---------- */
+.hero {
+  /* Pull up under the sticky header so the colour fills from the top edge. */
+  margin-top: calc(var(--header-h) * -1);
+  padding: calc(var(--header-h) + 40px) var(--gutter) 64px;
+  min-height: 88dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  background: var(--brand);
+  color: #fff;
+}
+
+.heroTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.heroTop a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.name {
+  font-size: clamp(64px, 14vw, 240px);
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+  animation: rise 1s var(--ease-out) backwards;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(30%);
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 -10% 0);
+  }
+}
+
+.heroFoot {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 32px;
+  align-items: end;
+  padding-top: 24px;
+  border-top: 1px solid rgb(255 255 255 / 0.35);
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.2vw, 32px);
+  line-height: 1.3;
+  max-width: 720px;
+}
+
+.facts {
+  display: grid;
+  gap: 12px;
+}
+
+.facts div {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.facts dt {
+  opacity: 0.7;
+}
+
+/* ---------- role + results ---------- */
+.story {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 48px;
+  padding: 100px var(--gutter) 0;
+}
+
+.role {
+  display: grid;
+  gap: 16px;
+}
+
+.role p {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.4vw, 34px);
+  line-height: 1.3;
+}
+
+.results {
+  display: grid;
+  gap: 24px;
+}
+
+.results li {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.resultValue {
+  font-size: clamp(48px, 6vw, 96px);
+  color: var(--brand);
+}
+
+/* ---------- work ---------- */
+.work {
+  padding: 100px var(--gutter) 120px;
+}
+
+.workHead {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--ink);
+}
+
+/* ---------- next case study ---------- */
+.next {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  padding: 80px var(--gutter);
+  border-top: 1px solid var(--rule);
+  isolation: isolate;
+  transition: color 0.4s;
+}
+
+.next::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--next);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.6s var(--ease-in-out);
+  z-index: -1;
+}
+
+.next:hover {
+  color: #fff;
+}
+
+.next:hover::before {
+  transform: scaleY(1);
+}
+
+.nextName {
+  font-size: clamp(56px, 10vw, 170px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+.nextName span {
+  display: inline-block;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.next:hover .nextName span {
+  transform: translateX(0.15em) rotate(-45deg);
+}
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: 70dvh;
+  }
+  .heroFoot,
+  .story {
+    grid-template-columns: 1fr;
+  }
+}

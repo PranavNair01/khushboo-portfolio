@@ -1,11 +1,66 @@
-// Placeholder until the real home page is built (build step 3).
-export default function Home() {
+import type { CSSProperties } from "react";
+import Link from "next/link";
+import { PortableText } from "next-sanity";
+import { Gallery } from "@/components/Gallery";
+import { Hero } from "@/components/home/Hero";
+import { LogoMarquee } from "@/components/LogoMarquee";
+import { SanityImg } from "@/components/Media";
+import { WorkList } from "@/components/WorkList";
+import { pad } from "@/lib/format";
+import { getPortfolio } from "@/sanity/lib/queries";
+import s from "./page.module.css";
+
+export default async function Home() {
+  const { settings, about, brands, experience } = await getPortfolio();
+  const work = brands.filter((b) => b.presentation === "caseStudy");
+  // The first brand in the Studio's order is the one featured here.
+  const featured = work[0];
+  const current = experience.find((e) => !e.endDate);
+
   return (
-    <main className="grid min-h-dvh place-items-center p-8 text-center">
-      <div>
-        <h1 className="text-4xl tracking-tight">Khushboo Punjani</h1>
-        <p className="mt-2 text-sm uppercase tracking-[0.3em]">Copywriter · coming soon</p>
-      </div>
-    </main>
+    <>
+      <Hero
+        headline={about.headline}
+        role={current && `${current.role}, ${current.company}`}
+        location={settings.location}
+      />
+
+      <LogoMarquee brands={brands} />
+
+      <section className={s.work}>
+        <div className={s.head}>
+          <h2 className={`display ${s.h2}`}>
+            Selected <em>work</em>
+          </h2>
+          <span className="label">({pad(work.length)})</span>
+        </div>
+        <WorkList brands={work} />
+      </section>
+
+      {featured && (
+        <section className={s.featured} style={{ "--brand": featured.color ?? "var(--ink)" } as CSSProperties}>
+          <div className={s.featuredHead}>
+            <span className="label">Featured — {pad(1)}</span>
+            <h2 className={`display ${s.featuredName}`}>{featured.name}</h2>
+            {featured.tagline && <p className={s.tagline}>{featured.tagline}</p>}
+            <Link href={`/work/${featured.slug}`} className={s.cta}>
+              View case study <span aria-hidden>→</span>
+            </Link>
+          </div>
+          <Gallery layout="strip" items={[featured.cover, ...(featured.gallery ?? [])].filter((m) => m !== undefined).slice(0, 5)} />
+        </section>
+      )}
+
+      <section className={s.about}>
+        {about.portrait && <SanityImg image={about.portrait} className={s.photo} sizes="(max-width: 700px) 100vw, 40vw" />}
+        <div className={s.aboutText}>
+          <span className="label">About</span>
+          <div className={s.bio}>{about.bio && <PortableText value={about.bio.slice(0, 1)} />}</div>
+          <Link href="/about" className={s.cta}>
+            More about me <span aria-hidden>→</span>
+          </Link>
+        </div>
+      </section>
+    </>
   );
 }

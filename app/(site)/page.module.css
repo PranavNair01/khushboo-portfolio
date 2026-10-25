@@ -1,0 +1,101 @@
+.work {
+  padding: 120px var(--gutter) 80px;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.h2 {
+  font-size: clamp(40px, 7vw, 110px);
+}
+
+/* ---------- featured case study ---------- */
+.featured {
+  background: var(--brand);
+  color: #fff;
+  padding: 100px var(--gutter);
+}
+
+.featuredHead {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  max-width: 900px;
+  margin-bottom: 64px;
+}
+
+.featuredName {
+  font-size: clamp(56px, 11vw, 180px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+.tagline {
+  font-size: clamp(16px, 1.6vw, 22px);
+  line-height: 1.45;
+  max-width: 560px;
+  opacity: 0.85;
+}
+
+.cta {
+  display: inline-flex;
+  gap: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentColor;
+  font-size: 15px;
+}
+
+.cta span {
+  transition: transform 0.4s var(--ease-out);
+}
+
+.cta:hover span {
+  transform: translateX(6px);
+}
+
+/* ---------- about teaser ---------- */
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(24px, 6vw, 96px);
+  padding: 140px var(--gutter);
+}
+
+.photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.aboutText {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 32px;
+}
+
+.bio p {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.4vw, 36px);
+  line-height: 1.3;
+}
+
+.bio p:first-child::first-letter {
+  float: left;
+  font-size: 3.4em;
+  line-height: 0.8;
+  padding: 0.08em 0.08em 0 0;
+  font-style: italic;
+}
+
+@media (max-width: 700px) {
+  .about {
+    grid-template-columns: 1fr;
+    padding-block: 80px;
+  }
+}
