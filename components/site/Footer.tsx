@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Magnetic } from "@/components/motion/Magnetic";
 import { downloadHref, telHref, whatsAppHref } from "@/lib/format";
 import type { Portfolio } from "@/sanity/lib/types";
 import s from "./Footer.module.css";
@@ -8,9 +9,11 @@ export function Footer({ settings }: { settings: Portfolio["settings"] }) {
   return (
     <footer className={s.footer}>
       <span className="label">Contact</span>
-      <Link className={s.talk} href="/contact">
-        Let&rsquo;s <em>talk.</em>
-      </Link>
+      <Magnetic strength={0.15} className={s.talkWrap}>
+        <Link className={s.talk} href="/contact" data-cursor="Say hi">
+          Let&rsquo;s <em>talk.</em>
+        </Link>
+      </Magnetic>
       <div className={s.row}>
         {email && <a href={`mailto:${email}`}>{email}</a>}
         {phone && <a href={telHref(phone)}>{phone}</a>}

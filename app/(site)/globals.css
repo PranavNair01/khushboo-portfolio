@@ -99,9 +99,95 @@ em {
   white-space: nowrap;
 }
 
+/* ---------- motion layer ---------- */
+
+/* The custom cursor replaces the system one, except in text fields. */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none;
+}
+
+html.has-cursor input,
+html.has-cursor textarea {
+  cursor: text;
+}
+
+/* Elements lean slightly with scroll speed (set by SmoothScroll). */
+[data-skew] {
+  transform: skewY(var(--scroll-skew, 0deg));
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* While the intro plays: no scrolling, and page animations wait for the reveal. */
+html[data-preloading] {
+  overflow: hidden;
+}
+
+html[data-preloading] main * {
+  animation-play-state: paused !important;
+}
+
+/* Page transitions (React <ViewTransition>, see components/motion/PageTransition.tsx).
+   The header and footer stay put; only page content moves. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-old(.page-exit) {
+  animation: page-out 0.45s var(--ease-in-out) both;
+}
+
+::view-transition-new(.page-enter) {
+  animation: page-in 0.8s var(--ease-out) 0.2s both;
+}
+
+::view-transition-group(.morph) {
+  animation-duration: 0.8s;
+  animation-timing-function: var(--ease-in-out);
+}
+
+::view-transition-image-pair(.morph) {
+  animation-name: via-blur;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-48px);
+    filter: blur(6px);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(80px);
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes via-blur {
+  40% {
+    filter: blur(4px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+  [data-skew] {
+    transform: none;
   }
   *,
   *::before,

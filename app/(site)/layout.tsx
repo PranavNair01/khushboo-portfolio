@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { Cursor } from "@/components/motion/Cursor";
+import { Preloader, preloaderScript } from "@/components/motion/Preloader";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { fontVariables } from "@/components/site/fonts";
@@ -24,9 +27,15 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
   const { settings } = await getPortfolio();
   return (
     <div id="top" className={`${fontVariables} ${s.site}`}>
+      {/* Must run before anything paints; decides whether the intro plays. */}
+      <script dangerouslySetInnerHTML={{ __html: preloaderScript }} />
+      <Preloader />
+      <SmoothScroll />
+      <Cursor />
       <Header />
       <main className={s.main}>{children}</main>
       <Footer settings={settings} />
+      <div className={s.grain} aria-hidden />
     </div>
   );
 }
