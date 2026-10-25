@@ -3,7 +3,8 @@
 // never leak into the Studio.
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en">
+    // The site's inline intro script may add data-preloading before hydration.
+    <html lang="en" suppressHydrationWarning>
       <body>{children}</body>
     </html>
   );

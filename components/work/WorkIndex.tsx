@@ -3,6 +3,7 @@
 import { useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { Media } from "@/components/Media";
+import { Shared, sharedName } from "@/components/motion/PageTransition";
 import { pad } from "@/lib/format";
 import { categoryLabels, type Brand, type Category } from "@/sanity/lib/types";
 import s from "./WorkIndex.module.css";
@@ -19,7 +20,9 @@ export function WorkIndex({ brands }: { brands: Brand[] }) {
         {(["all", ...used] as const).map((c) => (
           <button key={c} className={s.filter} aria-pressed={filter === c} onClick={() => setFilter(c)}>
             {c === "all" ? "All" : categoryLabels[c]}
-            <sup className="label">{c === "all" ? brands.length : brands.filter((b) => b.categories?.includes(c)).length}</sup>
+            <sup className="label">
+              {c === "all" ? brands.length : brands.filter((b) => b.categories?.includes(c)).length}
+            </sup>
           </button>
         ))}
       </div>
@@ -28,16 +31,22 @@ export function WorkIndex({ brands }: { brands: Brand[] }) {
       <ul key={filter} className={s.grid}>
         {shown.map((b, i) => (
           <li key={b._id} style={{ "--brand": b.color ?? "var(--ink)", "--i": i } as CSSProperties}>
-            <Link href={`/work/${b.slug}`} className={s.card}>
-              <span className={s.frame}>
-                {b.cover && <Media media={b.cover} className={s.media} sizes="(max-width: 700px) 100vw, 33vw" still />}
-                <span className={s.tint} />
-              </span>
+            <Link href={`/work/${b.slug}`} className={s.card} data-cursor="View">
+              <Shared name={sharedName.brandCover(b.slug)}>
+                <span className={s.frame} data-skew>
+                  {b.cover && (
+                    <Media media={b.cover} className={s.media} sizes="(max-width: 700px) 100vw, 33vw" still />
+                  )}
+                  <span className={s.tint} />
+                </span>
+              </Shared>
               <span className={s.meta}>
                 <span className="label">{pad(brands.indexOf(b) + 1)}</span>
                 <span className="label">{b.categories?.map((c) => categoryLabels[c]).join(" · ")}</span>
               </span>
-              <span className={s.name}>{b.name}</span>
+              <Shared name={sharedName.brandName(b.slug)}>
+                <span className={s.name}>{b.name}</span>
+              </Shared>
             </Link>
           </li>
         ))}

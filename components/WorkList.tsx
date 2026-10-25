@@ -3,6 +3,7 @@ import Link from "next/link";
 import { pad } from "@/lib/format";
 import { categoryLabels, type Brand } from "@/sanity/lib/types";
 import { Media } from "./Media";
+import { Shared, sharedName } from "./motion/PageTransition";
 import s from "./WorkList.module.css";
 
 // Magazine-style index of case studies. Hover floods the row with the brand colour
@@ -12,9 +13,11 @@ export function WorkList({ brands }: { brands: Brand[] }) {
     <ol className={s.list}>
       {brands.map((b, i) => (
         <li key={b._id} style={{ "--brand": b.color ?? "var(--ink)" } as CSSProperties}>
-          <Link href={`/work/${b.slug}`} className={s.row}>
+          <Link href={`/work/${b.slug}`} className={s.row} data-cursor="View">
             <span className="label">{pad(i + 1)}</span>
-            <span className={s.name}>{b.name}</span>
+            <Shared name={sharedName.brandName(b.slug)}>
+              <span className={s.name}>{b.name}</span>
+            </Shared>
             <span className={`label ${s.cats}`}>{b.categories?.map((c) => categoryLabels[c]).join(" · ")}</span>
             <span className={s.arrow} aria-hidden>
               →

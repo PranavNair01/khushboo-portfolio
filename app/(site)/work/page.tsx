@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageTransition } from "@/components/motion/PageTransition";
 import { WorkIndex } from "@/components/work/WorkIndex";
 import { pad } from "@/lib/format";
 import { getPortfolio } from "@/sanity/lib/queries";
@@ -15,29 +16,31 @@ export default async function WorkPage() {
   const alsoFor = brands.filter((b) => b.presentation === "logoOnly");
 
   return (
-    <div className={s.page}>
-      <header className={s.head}>
-        <h1 className={`display ${s.title}`}>
-          Work<em>.</em>
-        </h1>
-        <span className="label">({pad(work.length)} case studies)</span>
-      </header>
+    <PageTransition>
+      <div className={s.page}>
+        <header className={s.head}>
+          <h1 className={`display ${s.title}`}>
+            Work<em>.</em>
+          </h1>
+          <span className="label">({pad(work.length)} case studies)</span>
+        </header>
 
-      <WorkIndex brands={work} />
+        <WorkIndex brands={work} />
 
-      {alsoFor.length > 0 && (
-        <section className={s.also}>
-          <span className="label">Also written for</span>
-          <p className={s.alsoList}>
-            {alsoFor.map((b, i) => (
-              <span key={b._id}>
-                {b.name}
-                {i < alsoFor.length - 1 && <em>, </em>}
-              </span>
-            ))}
-          </p>
-        </section>
-      )}
-    </div>
+        {alsoFor.length > 0 && (
+          <section className={s.also}>
+            <span className="label">Also written for</span>
+            <p className={s.alsoList}>
+              {alsoFor.map((b, i) => (
+                <span key={b._id}>
+                  {b.name}
+                  {i < alsoFor.length - 1 && <em>, </em>}
+                </span>
+              ))}
+            </p>
+          </section>
+        )}
+      </div>
+    </PageTransition>
   );
 }

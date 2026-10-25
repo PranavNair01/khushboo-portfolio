@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import { Magnetic } from "@/components/motion/Magnetic";
 import { sendMessage, type ContactState } from "./actions";
 import s from "./page.module.css";
 
@@ -58,9 +59,11 @@ export function ContactForm() {
           {state.message}
         </p>
       )}
-      <button type="submit" className={s.submit} disabled={pending}>
-        {pending ? "Sending…" : "Send message"} <span aria-hidden>→</span>
-      </button>
+      <Magnetic className={s.submitWrap}>
+        <button type="submit" className={s.submit} disabled={pending}>
+          {pending ? "Sending…" : "Send message"} <span aria-hidden>→</span>
+        </button>
+      </Magnetic>
     </form>
   );
 }

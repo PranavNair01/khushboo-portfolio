@@ -96,8 +96,11 @@
   font-size: 14px;
 }
 
-.submit {
+.submitWrap {
   justify-self: start;
+}
+
+.submit {
   display: inline-flex;
   align-items: center;
   gap: 12px;

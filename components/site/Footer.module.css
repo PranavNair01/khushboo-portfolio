@@ -38,3 +38,8 @@
   padding-top: 48px;
   color: var(--muted);
 }
+
+/* Magnetic wrapper: keep it only as wide as the text so the pull starts on hover. */
+.talkWrap {
+  justify-self: start;
+}
