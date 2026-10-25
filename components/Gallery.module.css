@@ -1,0 +1,86 @@
+.item {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.frame {
+  overflow: hidden;
+}
+
+.media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.item:hover .media {
+  transform: scale(1.03);
+}
+
+.reel .frame {
+  aspect-ratio: 9 / 16;
+}
+
+.portrait .frame {
+  aspect-ratio: 4 / 5;
+}
+
+.square .frame {
+  aspect-ratio: 1;
+}
+
+.landscape .frame {
+  aspect-ratio: 16 / 9;
+}
+
+/* ---------- strip: horizontal, snap-scrolling ---------- */
+.strip {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+}
+
+.strip .item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.strip .reel {
+  width: clamp(180px, 20vw, 280px);
+}
+
+.strip .portrait {
+  width: clamp(200px, 24vw, 340px);
+}
+
+.strip .square {
+  width: clamp(220px, 26vw, 360px);
+}
+
+.strip .landscape {
+  width: clamp(300px, 40vw, 560px);
+}
+
+/* ---------- grid: dense masonry-ish layout ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  grid-auto-flow: dense;
+  gap: 32px 20px;
+  align-items: start;
+}
+
+.grid .landscape {
+  grid-column: span 2;
+}
+
+@media (max-width: 700px) {
+  .grid .landscape {
+    grid-column: auto;
+  }
+}

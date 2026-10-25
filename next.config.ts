@@ -7,16 +7,6 @@ const nextConfig: NextConfig = {
     loader: "custom",
     loaderFile: "./sanity/lib/image-loader.ts",
   },
-  turbopack: {
-    rules: {
-      "*.css": {
-        // Leave CSS Modules alone; rewriting them as "*.css" would strip their scoping.
-        condition: { not: { path: /\.module\.css$/ } },
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
 };
 
 export default nextConfig;

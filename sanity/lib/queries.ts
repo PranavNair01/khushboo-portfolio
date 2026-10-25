@@ -12,7 +12,8 @@ const media = `{ _key, kind, format, caption, image${image}, poster${image}, "vi
 
 const portfolioQuery = defineQuery(`{
   "settings": *[_id == "siteSettings"][0]{
-    email, phone, phoneOnWhatsApp, location, socials[]{ platform, url }, "resume": resume.asset->url
+    email, phone, phoneOnWhatsApp, location, socials[]{ platform, url }, "resume": resume.asset->url,
+    title, description, "ogImage": ogImage.asset->url
   },
   "about": *[_id == "about"][0]{ headline, bio, portrait${image}, skills },
   "brands": *[_type == "brand" && hidden != true] | order(orderRank) {

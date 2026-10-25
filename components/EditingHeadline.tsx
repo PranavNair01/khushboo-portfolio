@@ -10,7 +10,7 @@ type Props = {
 };
 
 // "Words that ~~sell~~ ~~stick~~ stay." Each draft word appears, gets struck through,
-// and the last one stays. CSS-only for the style frames; GSAP takes over in step 4.
+// and the last one stays. CSS-only for now; GSAP takes over in build step 4.
 export function EditingHeadline({ lead, words, className, finalClassName }: Props) {
   const drafts = words.slice(0, -1);
   const final = words.at(-1);

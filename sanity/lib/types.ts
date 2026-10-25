@@ -63,6 +63,9 @@ export type Portfolio = {
     location?: string;
     resume?: string;
     socials?: { platform: string; url: string }[];
+    title?: string;
+    description?: string;
+    ogImage?: string;
   };
   about: {
     headline?: { lead: string; words: string[] };

@@ -1,0 +1,139 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 var(--gutter);
+  /* Inverts against whatever is underneath, so it reads on cream and on brand colours. */
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.header[data-open="true"] {
+  mix-blend-mode: normal;
+  color: var(--paper);
+}
+
+.mark {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: 22px;
+}
+
+.nav {
+  display: flex;
+  gap: 28px;
+  font-size: 14px;
+}
+
+.link {
+  position: relative;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease-in-out);
+}
+
+.link:hover::after,
+.link[aria-current="page"]::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.link[aria-current="page"] {
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+.menuButton {
+  display: none;
+  position: relative;
+  z-index: 2;
+  background: none;
+  border: 0;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+/* ---------- mobile menu ---------- */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--header-h) var(--gutter) 48px;
+  background: var(--ink);
+  color: var(--paper);
+  animation: menuIn 0.6s var(--ease-in-out) both;
+}
+
+.menu[hidden] {
+  display: none;
+}
+
+.menu ol {
+  width: 100%;
+  border-top: 1px solid rgb(241 238 232 / 0.2);
+}
+
+.menu li {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgb(241 238 232 / 0.2);
+  animation: itemIn 0.7s var(--ease-out) both;
+  animation-delay: calc(0.15s + var(--i) * 0.06s);
+}
+
+.menu a {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 13vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.menu a[aria-current="page"] {
+  font-style: italic;
+}
+
+@keyframes menuIn {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes itemIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+@media (max-width: 700px) {
+  .nav,
+  .page {
+    display: none;
+  }
+  .menuButton {
+    display: block;
+  }
+}

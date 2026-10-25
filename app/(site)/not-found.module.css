@@ -1,0 +1,25 @@
+.page {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 32px;
+  min-height: 70dvh;
+  padding: 80px var(--gutter);
+}
+
+.title {
+  font-size: clamp(48px, 9vw, 150px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  max-width: 14ch;
+}
+
+.title s {
+  color: var(--muted);
+  text-decoration-thickness: 0.06em;
+}
+
+.link {
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentColor;
+}
