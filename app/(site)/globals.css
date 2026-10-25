@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Placeholder palette; the real design tokens arrive with the chosen style frame (build step 2). */
+:root {
+  --background: #f1eee8;
+  --foreground: #141414;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
