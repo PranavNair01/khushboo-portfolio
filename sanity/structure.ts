@@ -20,4 +20,5 @@ export const structure: StructureResolver = (S, context) =>
       S.divider(),
       orderableDocumentListDeskItem({ type: "brand", title: "Brands", icon: TagIcon, S, context }),
       S.documentTypeListItem("experience").title("Experience"),
+      S.documentTypeListItem("education").title("Education"),
     ]);
