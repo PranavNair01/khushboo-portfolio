@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "lenis/dist/lenis.css";
-import { PRELOADER_DONE, prefersReducedMotion } from "./motion";
+import { lenisRef, PRELOADER_DONE, prefersReducedMotion } from "./motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,8 +14,6 @@ gsap.registerPlugin(ScrollTrigger);
 // Also publishes scroll speed as --scroll-skew for elements marked [data-skew].
 export function SmoothScroll() {
   const pathname = usePathname();
-  const lenisRef = useRef<Lenis | null>(null);
-
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
@@ -52,9 +50,39 @@ export function SmoothScroll() {
   }, []);
 
   // New page, new scroll position: jump straight to the top instead of gliding there.
+  // If scrolling was frozen for the navigation (e.g. the pull into the next case study),
+  // release it once leftover wheel momentum has died down.
   useEffect(() => {
-    lenisRef.current?.scrollTo(0, { immediate: true, force: true });
+    const lenis = lenisRef.current;
+    if (!lenis) return;
+    // ScrollTrigger.refresh() restores the scroll position it saw, so reset only after it.
+    ScrollTrigger.clearScrollMemory();
     ScrollTrigger.refresh();
+    window.scrollTo(0, 0);
+    lenis.scrollTo(0, { immediate: true, force: true });
+    if (!lenis.isStopped) return;
+
+    // Resume once the wheel/touch input has been quiet for a moment (momentum has stopped).
+    let quiet: ReturnType<typeof setTimeout>;
+    const resume = () => {
+      clearTimeout(quiet);
+      quiet = setTimeout(() => {
+        window.scrollTo(0, 0);
+        lenis.start();
+        stopListening();
+      }, 400);
+    };
+    const stopListening = () => {
+      window.removeEventListener("wheel", resume);
+      window.removeEventListener("touchmove", resume);
+    };
+    window.addEventListener("wheel", resume, { passive: true });
+    window.addEventListener("touchmove", resume, { passive: true });
+    resume();
+    return () => {
+      clearTimeout(quiet);
+      stopListening();
+    };
   }, [pathname]);
 
   return null;

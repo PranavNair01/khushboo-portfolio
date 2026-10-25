@@ -8,12 +8,13 @@ import s from "./Preloader.module.css";
 const NAME = "Khushboo Punjani";
 
 /**
- * Runs before first paint (rendered inline by the site layout): flags <html data-preloading>
- * on the first visit of a session, so the overlay is up from the very first frame.
- * Failsafe: the flag clears itself after 6s, so the page can never stay covered
- * if the app's JavaScript fails to load.
+ * Runs before first paint (rendered inline by the site layout):
+ * - <html data-motion>: motion is on, so [data-reveal-pending] elements stay hidden until
+ *   their animation takes over (no flash of the end state).
+ * - <html data-preloading>: first visit of the session, so the intro overlay is up from frame one.
+ * Failsafe: both flags clear after 6s, so nothing stays hidden if the app's JavaScript fails.
  */
-export const preloaderScript = `try{if(!sessionStorage.getItem("${PRELOADER_SEEN}")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){var d=document.documentElement;d.setAttribute("data-preloading","");setTimeout(function(){d.removeAttribute("data-preloading")},6000)}}catch(e){}`;
+export const preloaderScript = `try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches){var d=document.documentElement;d.setAttribute("data-motion","");if(!sessionStorage.getItem("${PRELOADER_SEEN}"))d.setAttribute("data-preloading","");setTimeout(function(){d.removeAttribute("data-preloading");d.removeAttribute("data-motion")},6000)}}catch(e){}`;
 
 // Intro: her name sets letter by letter while a counter runs to 100, then the page
 // splits open. Page animations underneath stay paused until the split starts.

@@ -1,0 +1,84 @@
+.section {
+  position: relative;
+  border-top: 1px solid var(--rule);
+}
+
+.sticky {
+  position: relative;
+  display: grid;
+  align-content: space-between;
+  gap: 24px;
+  padding: calc(var(--header-h) + 24px) var(--gutter) 40px;
+  min-height: 70dvh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* The next brand's colour, rising from the bottom as you scroll. */
+.fill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--next);
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+
+.name {
+  display: block;
+  font-size: clamp(64px, 12vw, 220px);
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+  transform-origin: left bottom;
+}
+
+.foot {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+}
+
+.hint {
+  display: none;
+}
+
+.track {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.25;
+}
+
+.progress {
+  display: block;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Scroll-driven version: a tall runway with the panel pinned in place. */
+.section[data-pull] {
+  height: 220dvh;
+}
+
+/* Text starts in ink on paper and turns white once the colour is behind it (animated). */
+.section[data-pull] .sticky {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  color: var(--ink);
+}
+
+.section[data-pull] .hint {
+  display: inline;
+}
+
+/* Without the scroll effect, the panel is simply the next brand's colour. */
+.section:not([data-pull]) .fill {
+  transform: none;
+}
+
+.section:not([data-pull]) .sticky {
+  color: #fff;
+}

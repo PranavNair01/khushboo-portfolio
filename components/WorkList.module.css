@@ -2,6 +2,11 @@
   border-top: 1px solid var(--ink);
 }
 
+/* The WebGL preview has taken over; hide the CSS card. */
+.wrap[data-liquid="on"] .preview {
+  display: none;
+}
+
 .row {
   position: relative;
   display: grid;
