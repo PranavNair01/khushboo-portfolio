@@ -9,7 +9,7 @@ import s from "./HeroTrail.module.css";
 
 const SPACING = 90; // px of pointer travel between images
 
-// Option C: moving across the hero leaves a trail of her work that pops in and fades out.
+// Moving across the hero leaves a trail of her work that pops in and fades out.
 // Plays one short sweep by itself on load so visitors discover it.
 export function HeroTrail({ stills }: { stills: Still[] }) {
   const ref = useRef<HTMLDivElement>(null);

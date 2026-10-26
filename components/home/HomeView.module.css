@@ -79,23 +79,6 @@
   gap: 32px;
 }
 
-/* The big "3 years" next to the bio: years matter in her industry. */
-.years {
-  display: flex;
-  align-items: flex-end;
-  gap: 16px;
-}
-
-.years em {
-  font-size: clamp(96px, 14vw, 200px);
-  line-height: 0.75;
-  letter-spacing: -0.04em;
-}
-
-.years .label {
-  padding-bottom: 6px;
-  color: var(--muted);
-}
 
 .bio p {
   font-family: var(--font-display);

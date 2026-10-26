@@ -52,31 +52,6 @@
   border-top: 1px solid var(--rule);
 }
 
-.skills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 0;
-  font-family: var(--font-display);
-  font-size: clamp(26px, 3vw, 44px);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-}
-
-.skills li:not(:last-child)::after {
-  content: "/";
-  margin: 0 0.35em;
-  color: var(--muted);
-  font-style: normal;
-}
-
-.skills li {
-  transition: color 0.3s;
-}
-
-.skills li:hover {
-  font-style: italic;
-}
-
 .timeline li {
   display: grid;
   grid-template-columns: 120px 1fr auto;

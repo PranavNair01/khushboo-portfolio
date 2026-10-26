@@ -36,7 +36,7 @@ export function Header() {
   return (
     <header className={s.header} data-open={open}>
       <Link href="/" className={s.mark} onClick={close}>
-        K—P<span className="visually-hidden"> Khushboo Punjani, home</span>
+        KP<span className="visually-hidden"> Khushboo Punjani, home</span>
       </Link>
 
       <nav className={s.nav} aria-label="Main">

@@ -1,0 +1,80 @@
+.cloud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 36px;
+  padding: 24px 0;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* Gentle idle drift, each word on its own rhythm. */
+.word {
+  animation: float var(--float) ease-in-out var(--delay) infinite alternate;
+  transition: opacity 0.4s;
+}
+
+.rise {
+  display: inline-block;
+}
+
+.text {
+  display: inline-block;
+  transform: rotate(var(--tilt));
+  transition:
+    transform 0.5s var(--ease-out),
+    color 0.3s;
+  cursor: default;
+}
+
+/* Hovering a word brings it into focus and lets the rest fall back. */
+.cloud:hover .word:not(:hover) {
+  opacity: 0.3;
+}
+
+.word:hover .text {
+  transform: rotate(0deg) scale(1.08);
+}
+
+.xl {
+  font-size: clamp(44px, 6vw, 96px);
+}
+
+.l {
+  font-size: clamp(34px, 4.4vw, 68px);
+}
+
+.m {
+  font-size: clamp(24px, 2.8vw, 42px);
+}
+
+.s {
+  font-size: 12px;
+}
+
+.roman,
+.italic {
+  font-family: var(--font-display);
+}
+
+.italic {
+  font-style: italic;
+}
+
+.mono {
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.word:hover .mono {
+  color: var(--ink);
+}
+
+@keyframes float {
+  to {
+    transform: translateY(-8px);
+  }
+}

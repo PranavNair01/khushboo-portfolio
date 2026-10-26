@@ -54,8 +54,8 @@
   font-variant-numeric: lining-nums tabular-nums;
 }
 
-/* With a backdrop (options B and C): content sits above it, and the name inverts against
-   whatever is behind it, so it reads on images and on paper alike. */
+/* The work trail sits behind the content, and the name inverts against whatever is behind
+   it, so it reads on images and on paper alike. */
 .withBackdrop {
   isolation: isolate;
   overflow: hidden;

@@ -9,12 +9,12 @@ import { PersonJsonLd } from "@/components/PersonJsonLd";
 import { WorkList } from "@/components/WorkList";
 import { pad } from "@/lib/format";
 import { getPortfolio } from "@/sanity/lib/queries";
-import { Hero, type HeroVariant } from "./Hero";
+import { Hero } from "./Hero";
 import { collectStills } from "./stills";
 import s from "./HomeView.module.css";
 
 // The home page: name and stats, logos, about, selected work, featured brand.
-export async function HomeView({ variant = "plain" }: { variant?: HeroVariant }) {
+export async function HomeView() {
   const { settings, about, brands, experience, stats } = await getPortfolio();
   const work = brands.filter((b) => b.presentation === "caseStudy");
   // The first brand in the Studio's order is the one featured here.
@@ -30,8 +30,7 @@ export async function HomeView({ variant = "plain" }: { variant?: HeroVariant })
           role={current?.role}
           company={current?.company}
           location={settings.location}
-          variant={variant}
-          stills={variant === "plain" ? [] : collectStills(brands)}
+          stills={collectStills(brands)}
         />
 
         <LogoMarquee brands={brands} />
@@ -42,14 +41,6 @@ export async function HomeView({ variant = "plain" }: { variant?: HeroVariant })
           )}
           <div className={s.aboutText}>
             <span className="label">About</span>
-            <p className={s.years}>
-              <em>{stats.years}</em>
-              <span className="label">
-                years writing
-                <br />
-                for brands
-              </span>
-            </p>
             <div className={s.bio}>{about.bio && <PortableText value={about.bio.slice(0, 1)} />}</div>
             <Link href="/about" className={s.cta} data-cursor="Read">
               More about me <span aria-hidden>→</span>
