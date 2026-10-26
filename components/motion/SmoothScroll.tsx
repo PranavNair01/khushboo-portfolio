@@ -50,7 +50,7 @@ export function SmoothScroll() {
   }, []);
 
   // New page, new scroll position: jump straight to the top instead of gliding there.
-  // If scrolling was frozen for the navigation (e.g. the pull into the next case study),
+  // If scrolling was frozen for the navigation (e.g. the pull into the next brand),
   // release it once leftover wheel momentum has died down.
   useEffect(() => {
     const lenis = lenisRef.current;

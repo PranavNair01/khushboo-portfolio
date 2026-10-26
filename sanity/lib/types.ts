@@ -45,6 +45,7 @@ export type Experience = {
   startDate: string;
   endDate?: string;
   summary?: string;
+  countsTowardsExperience?: boolean;
 };
 
 export type Education = {
@@ -68,7 +69,6 @@ export type Portfolio = {
     ogImage?: string;
   };
   about: {
-    headline?: { lead: string; words: string[] };
     bio?: PortableTextBlock[];
     portrait?: SanityImage;
     skills?: string[];
@@ -76,6 +76,7 @@ export type Portfolio = {
   brands: Brand[];
   experience: Experience[];
   education: Education[];
+  stats: { years: number; brands: number };
 };
 
 export const categoryLabels: Record<Category, string> = {

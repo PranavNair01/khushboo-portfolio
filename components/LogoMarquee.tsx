@@ -2,7 +2,7 @@ import type { Brand } from "@/sanity/lib/types";
 import { SanityImg } from "./Media";
 import s from "./LogoMarquee.module.css";
 
-// Endless row of client logos: greyscale at rest, full colour on hover.
+// Endless row of client logos in full colour; hovering pauses the row.
 export function LogoMarquee({ brands }: { brands: Brand[] }) {
   const logos = brands.filter((b) => b.logo);
   return (

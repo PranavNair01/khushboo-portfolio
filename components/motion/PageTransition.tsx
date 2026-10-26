@@ -11,7 +11,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
 }
 
 // Elements with the same name on the old and new page morph into each other,
-// e.g. a brand's cover in the work list becoming the case study's hero image.
+// e.g. a brand's name in the work list becoming the brand page's title.
 export function Shared({ name, children }: { name: string; children: ReactNode }) {
   return (
     <ViewTransition name={name} share="morph" default="none">
@@ -22,5 +22,4 @@ export function Shared({ name, children }: { name: string; children: ReactNode }
 
 export const sharedName = {
   brandName: (slug: string) => `brand-name-${slug}`,
-  brandCover: (slug: string) => `brand-cover-${slug}`,
 };

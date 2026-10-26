@@ -22,7 +22,12 @@ export const education = defineType({
       options: { dateFormat: "MM/YYYY" },
       validation: (rule) => rule.required(),
     }),
-    defineField({ name: "summary", type: "text", rows: 3, description: "Optional: specialisation, honours, projects." }),
+    defineField({
+      name: "summary",
+      type: "text",
+      rows: 3,
+      description: "Optional: specialisation, honours, projects.",
+    }),
   ],
   orderings: [
     { title: "Most recent first", name: "completedDateDesc", by: [{ field: "completedDate", direction: "desc" }] },

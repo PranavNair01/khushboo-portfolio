@@ -4,7 +4,7 @@ import s from "./Gallery.module.css";
 
 type Props = {
   items: MediaItem[];
-  /** "strip" scrolls sideways (home teaser); "grid" lays everything out (case study page). */
+  /** "strip" scrolls sideways (home teaser); "grid" lays everything out (brand page). */
   layout?: "strip" | "grid";
 };
 

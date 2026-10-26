@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 type Props = { slug: string; name: string; color?: string };
 
-// The end of a case study pulls you into the next one: while this section is pinned, the
+// The end of a brand page pulls you into the next one: while this section is pinned, the
 // next brand's colour floods up and its name grows; at the bottom the site navigates there,
 // and the name morphs into that page's hero. With reduced motion it is a plain link.
 export function NextBrand({ slug, name, color }: Props) {
@@ -62,7 +62,7 @@ export function NextBrand({ slug, name, color }: Props) {
     <section ref={ref} className={s.section} style={{ "--next": color ?? "var(--ink)" } as CSSProperties}>
       <div className={s.sticky}>
         <span className={s.fill} aria-hidden />
-        <span className="label">Next case study</span>
+        <span className="label">Next brand</span>
         <Shared name={sharedName.brandName(slug)}>
           <span className={`display ${s.name}`}>{name}</span>
         </Shared>

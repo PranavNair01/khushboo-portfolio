@@ -21,7 +21,7 @@ function liquidData(cover?: MediaItem) {
   return image ? { "data-liquid-src": `${image.asset.url}?w=640&fm=jpg&q=80`, "data-liquid-kind": "image" } : {};
 }
 
-// Magazine-style index of case studies. Hover floods the row with the brand colour and
+// Magazine-style index of brands. Hover floods the row with the brand colour and
 // pours the cover in next to the cursor (WebGL on desktop, a CSS card as fallback).
 export function WorkList({ brands }: { brands: Brand[] }) {
   return (

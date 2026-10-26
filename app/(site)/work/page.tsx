@@ -7,7 +7,7 @@ import s from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Case studies: social, film, campaigns and CLM written by Khushboo Punjani.",
+  description: "Brands: social, film, campaigns and CLM written by Khushboo Punjani.",
 };
 
 export default async function WorkPage() {
@@ -22,7 +22,7 @@ export default async function WorkPage() {
           <h1 className={`display ${s.title}`}>
             Work<em>.</em>
           </h1>
-          <span className="label">({pad(work.length)} case studies)</span>
+          <span className="label">({pad(work.length)} brands)</span>
         </header>
 
         <WorkIndex brands={work} />

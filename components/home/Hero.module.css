@@ -39,15 +39,44 @@
   animation-delay: 0.12s;
 }
 
-.headline {
+/* "3 years in copy · 15 brands · Senior Copywriter at Dentsu" */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.3em;
   margin-top: 28px;
   font-family: var(--font-display);
-  font-size: clamp(28px, 4vw, 56px);
-  line-height: 1.1;
+  font-size: clamp(22px, 3vw, 44px);
+  line-height: 1.15;
 }
 
-.final {
-  font-style: italic;
+.stats em {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* With a backdrop (options B and C): content sits above it, and the name inverts against
+   whatever is behind it, so it reads on images and on paper alike. */
+.withBackdrop {
+  isolation: isolate;
+  overflow: hidden;
+  /* The name's difference blend needs the paper inside this isolated group to invert against. */
+  background: var(--paper);
+}
+
+.withBackdrop .meta,
+.withBackdrop .name,
+.withBackdrop .stats {
+  position: relative;
+  z-index: 1;
+}
+
+.withBackdrop .scroll {
+  z-index: 1;
+}
+
+.withBackdrop .name {
+  color: #fff;
+  mix-blend-mode: difference;
 }
 
 .scroll {
