@@ -13,7 +13,7 @@
   font-size: clamp(40px, 7vw, 110px);
 }
 
-/* ---------- featured case study ---------- */
+/* ---------- featured brand ---------- */
 .featured {
   background: var(--brand);
   color: #fff;
@@ -61,7 +61,8 @@
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   gap: clamp(24px, 6vw, 96px);
-  padding: 140px var(--gutter);
+  padding: 120px var(--gutter);
+  border-bottom: 1px solid var(--rule);
 }
 
 .photo {
@@ -77,6 +78,7 @@
   justify-items: start;
   gap: 32px;
 }
+
 
 .bio p {
   font-family: var(--font-display);

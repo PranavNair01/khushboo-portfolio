@@ -8,7 +8,7 @@ import { pad } from "@/lib/format";
 import { categoryLabels, type Brand, type Category } from "@/sanity/lib/types";
 import s from "./WorkIndex.module.css";
 
-// Grid of case studies with category filters. Filters only list categories that are in use.
+// Grid of brands with category filters. Filters only list categories that are in use.
 export function WorkIndex({ brands }: { brands: Brand[] }) {
   const [filter, setFilter] = useState<Category | "all">("all");
   const used = (Object.keys(categoryLabels) as Category[]).filter((c) => brands.some((b) => b.categories?.includes(c)));
@@ -32,14 +32,10 @@ export function WorkIndex({ brands }: { brands: Brand[] }) {
         {shown.map((b, i) => (
           <li key={b._id} style={{ "--brand": b.color ?? "var(--ink)", "--i": i } as CSSProperties}>
             <Link href={`/work/${b.slug}`} className={s.card} data-cursor="View">
-              <Shared name={sharedName.brandCover(b.slug)}>
-                <span className={s.frame} data-skew>
-                  {b.cover && (
-                    <Media media={b.cover} className={s.media} sizes="(max-width: 700px) 100vw, 33vw" still />
-                  )}
-                  <span className={s.tint} />
-                </span>
-              </Shared>
+              <span className={s.frame} data-skew>
+                {b.cover && <Media media={b.cover} className={s.media} sizes="(max-width: 700px) 100vw, 33vw" still />}
+                <span className={s.tint} />
+              </span>
               <span className={s.meta}>
                 <span className="label">{pad(brands.indexOf(b) + 1)}</span>
                 <span className="label">{b.categories?.map((c) => categoryLabels[c]).join(" · ")}</span>

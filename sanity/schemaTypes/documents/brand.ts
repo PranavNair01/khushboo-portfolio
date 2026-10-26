@@ -5,7 +5,7 @@ import { type ConditionalPropertyCallback, defineArrayMember, defineField, defin
 const isLogoOnly: ConditionalPropertyCallback = ({ document }) => document?.presentation === "logoOnly";
 
 // A client brand. Every brand appears on the logo wall; brands presented
-// as a case study also get their own page with the work.
+// as a brand page also get their own page with the work.
 export const brand = defineType({
   name: "brand",
   title: "Brand",
@@ -13,7 +13,7 @@ export const brand = defineType({
   icon: TagIcon,
   groups: [
     { name: "basics", title: "Basics", default: true },
-    { name: "caseStudy", title: "Case study" },
+    { name: "caseStudy", title: "Work" },
   ],
   orderings: [orderRankOrdering],
   fields: [
@@ -38,7 +38,7 @@ export const brand = defineType({
       group: "basics",
       options: {
         list: [
-          { title: "Case study page", value: "caseStudy" },
+          { title: "Brand page", value: "caseStudy" },
           { title: "Logo wall only", value: "logoOnly" },
         ],
         layout: "radio",
@@ -58,14 +58,15 @@ export const brand = defineType({
       name: "logo",
       type: "image",
       group: "basics",
-      description: "SVG or transparent PNG works best. Brands without a logo (e.g. spec work) are left off the logo wall.",
+      description:
+        "SVG or transparent PNG works best. Brands without a logo (e.g. spec work) are left off the logo wall.",
     }),
     defineField({
       name: "color",
       title: "Brand colour",
       type: "color",
       group: "basics",
-      description: "The case study page takes on this colour.",
+      description: "The brand page takes on this colour.",
       options: { disableAlpha: true },
     }),
     defineField({
@@ -137,7 +138,7 @@ export const brand = defineType({
       name: "cover",
       type: "media",
       group: "caseStudy",
-      description: "Shown on the work list and as the case study's opening visual.",
+      description: "Shown on the work list and as the first piece on the brand page.",
       hidden: isLogoOnly,
     }),
     defineField({
@@ -153,9 +154,8 @@ export const brand = defineType({
     select: { title: "name", presentation: "presentation", agency: "agency", hidden: "hidden", logo: "logo" },
     prepare: ({ title, presentation, agency, hidden, logo }) => ({
       title: hidden ? `${title} (hidden)` : title,
-      subtitle: [presentation === "logoOnly" ? "Logo only" : "Case study", agency].filter(Boolean).join(" · "),
+      subtitle: [presentation === "logoOnly" ? "Logo only" : "Brand page", agency].filter(Boolean).join(" · "),
       media: logo,
     }),
   },
 });
-

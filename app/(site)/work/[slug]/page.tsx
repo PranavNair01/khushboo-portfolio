@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { NextBrand } from "@/components/case-study/NextBrand";
 import { Showcase } from "@/components/case-study/Showcase";
-import { Media } from "@/components/Media";
 import { PageTransition, Shared, sharedName } from "@/components/motion/PageTransition";
 import { pad } from "@/lib/format";
 import { getPortfolio } from "@/sanity/lib/queries";
@@ -19,7 +18,7 @@ async function getCaseStudy(slug: string) {
   return { brand: work[index], index, total: work.length, next: work[(index + 1) % work.length] };
 }
 
-// No loading state between the work list and a case study: React waits for the page so the
+// No loading state between the work list and a brand page: React waits for the page so the
 // brand name and cover can morph across (a fallback in between would split the transition).
 // Brands added after a deploy simply render on their first visit.
 export const instant = false;
@@ -52,8 +51,8 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
     { label: "Work", value: brand.categories?.map((c) => categoryLabels[c]).join(", ") },
   ].filter((f) => f.value);
 
-  // The cover opens the page in the hero, so the gallery holds the rest.
-  const pieces = brand.gallery ?? [];
+  // The hero is type only; the cover leads the work below.
+  const pieces = [brand.cover, ...(brand.gallery ?? [])].filter((m) => m !== undefined);
 
   return (
     <PageTransition>
@@ -64,21 +63,12 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
               ← All work
             </Link>
             <span className="label">
-              Case study — {pad(index + 1)} / {pad(total)}
+              Brand — {pad(index + 1)} / {pad(total)}
             </span>
           </div>
-          <div className={s.heroBody}>
-            <Shared name={sharedName.brandName(brand.slug)}>
-              <h1 className={`display ${s.name}`}>{brand.name}</h1>
-            </Shared>
-            {brand.cover && (
-              <Shared name={sharedName.brandCover(brand.slug)}>
-                <div className={s.cover}>
-                  <Media media={brand.cover} className={s.coverMedia} sizes="(max-width: 700px) 60vw, 24vw" priority />
-                </div>
-              </Shared>
-            )}
-          </div>
+          <Shared name={sharedName.brandName(brand.slug)}>
+            <h1 className={`display ${s.name}`}>{brand.name}</h1>
+          </Shared>
           <div className={s.heroFoot}>
             {brand.tagline && <p className={s.tagline}>{brand.tagline}</p>}
             {facts.length > 0 && (

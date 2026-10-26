@@ -12,7 +12,7 @@ import s from "./Showcase.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// A case study's work. On wide screens the section pins and vertical scrolling slides the
+// A brand's work. On wide screens the section pins and vertical scrolling slides the
 // pieces sideways, with a live counter; on phones (or with reduced motion) it's a grid.
 // Any piece opens the fullscreen viewer.
 export function Showcase({ items }: { items: MediaItem[] }) {

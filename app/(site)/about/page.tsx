@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PortableText } from "next-sanity";
+import { SkillCloud } from "@/components/about/SkillCloud";
 import { SanityImg } from "@/components/Media";
 import { PageTransition } from "@/components/motion/PageTransition";
 import { downloadHref, yearRange } from "@/lib/format";
@@ -34,11 +35,7 @@ export default async function AboutPage() {
         {about.skills && about.skills.length > 0 && (
           <section className={s.section}>
             <h2 className="label">What I do</h2>
-            <ul className={s.skills}>
-              {about.skills.map((skill) => (
-                <li key={skill}>{skill}</li>
-              ))}
-            </ul>
+            <SkillCloud skills={about.skills} />
           </section>
         )}
 

@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-// Home-screen icon for iPhones: the K—P monogram on ink.
+// Home-screen icon for iPhones: the KP monogram on ink.
 export default function AppleIcon() {
   return new ImageResponse(
     <div
@@ -15,12 +15,12 @@ export default function AppleIcon() {
         justifyContent: "center",
         background: "#141414",
         color: "#f1eee8",
-        fontSize: 84,
+        fontSize: 96,
         fontFamily: "serif",
         letterSpacing: -2,
       }}
     >
-      K—P
+      KP
     </div>,
     size,
   );

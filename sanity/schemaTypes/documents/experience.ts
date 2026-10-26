@@ -23,10 +23,15 @@ export const experience = defineType({
       description: "Leave empty for the current role.",
     }),
     defineField({ name: "summary", type: "text", rows: 3 }),
+    defineField({
+      name: "countsTowardsExperience",
+      title: "Counts towards years of experience",
+      type: "boolean",
+      description: 'The home page\'s "years" number counts from the earliest role switched on here.',
+      initialValue: true,
+    }),
   ],
-  orderings: [
-    { title: "Most recent first", name: "startDateDesc", by: [{ field: "startDate", direction: "desc" }] },
-  ],
+  orderings: [{ title: "Most recent first", name: "startDateDesc", by: [{ field: "startDate", direction: "desc" }] }],
   preview: {
     select: { role: "role", company: "company", start: "startDate", end: "endDate" },
     prepare: ({ role, company, start, end }) => ({
