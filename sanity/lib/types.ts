@@ -8,14 +8,32 @@ export type SanityImage = {
 
 export type MediaFormat = "reel" | "portrait" | "square" | "landscape";
 
+export type Slide = {
+  _key: string;
+  kind: "image" | "video";
+  image?: SanityImage;
+  poster?: SanityImage;
+  video?: string;
+};
+
 export type Media = {
   _key?: string;
-  kind: "image" | "video";
+  kind: "image" | "video" | "carousel";
   format: MediaFormat;
   caption?: string;
   image?: SanityImage;
   poster?: SanityImage;
   video?: string;
+  /** Carousels only. */
+  slides?: Slide[];
+};
+
+/** The still that represents a piece anywhere it's shown small: its image, a video's poster,
+ *  or a carousel's first slide. */
+export const stillOf = (m?: Media | Slide): SanityImage | undefined => {
+  if (!m) return undefined;
+  if ("slides" in m && m.kind === "carousel") return stillOf(m.slides?.[0]);
+  return m.image ?? m.poster;
 };
 
 export type Category = "social" | "film" | "campaign" | "clm" | "influencer";

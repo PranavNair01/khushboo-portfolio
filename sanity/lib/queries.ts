@@ -8,7 +8,11 @@ const image = `{
   asset->{ _id, url, "width": metadata.dimensions.width, "height": metadata.dimensions.height, "lqip": metadata.lqip }
 }`;
 
-const media = `{ _key, kind, format, caption, image${image}, poster${image}, "video": video.asset->url }`;
+const slide = `{ _key, kind, image${image}, poster${image}, "video": video.asset->url }`;
+
+const media = `{
+  _key, kind, format, caption, image${image}, poster${image}, "video": video.asset->url, slides[]${slide}
+}`;
 
 const portfolioQuery = defineQuery(`{
   "settings": *[_id == "siteSettings"][0]{

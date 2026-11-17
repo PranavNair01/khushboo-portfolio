@@ -9,7 +9,7 @@
   padding: 20px var(--gutter);
   border: 0;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 16px;
   background: rgb(14 14 14 / 0.96);
   color: var(--paper);
@@ -40,6 +40,7 @@
 }
 
 .nav {
+  flex: none;
   width: 56px;
   height: 56px;
   border: 1px solid rgb(241 238 232 / 0.3);
@@ -55,30 +56,83 @@
   color: var(--ink);
 }
 
+/* ---------- the piece: always fits the space between the bars ---------- */
 .stage {
+  position: relative;
   min-height: 0;
-  display: grid;
-  place-items: center;
   touch-action: pan-y;
 }
 
 .piece {
-  height: 100%;
-  min-height: 0;
-  display: grid;
-  place-items: center;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
   animation: pieceIn 0.5s var(--ease-out);
 }
 
-/* Fill the stage, keeping proportions (many source files are small, so scale them up). */
-.piece,
 .media {
+  position: absolute;
+  inset: 0;
   width: 100%;
-}
-
-.media {
   height: 100%;
   object-fit: contain;
+  transition: transform 0.45s var(--ease-out);
+}
+
+/* Click to zoom: the image grows around the point you clicked and follows the pointer. */
+.zoomable {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  touch-action: none;
+}
+
+.zoomable[data-zoomed="true"] {
+  cursor: zoom-out;
+}
+
+.zoomable[data-zoomed="true"] .media {
+  transition: transform 0.45s var(--ease-out), transform-origin 0.15s linear;
+}
+
+/* ---------- caption and carousel position ---------- */
+.info {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.slides {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(241 238 232 / 0.35);
+  cursor: pointer;
+  transition:
+    background 0.3s,
+    transform 0.3s;
+}
+
+.dot[aria-current="true"] {
+  background: var(--paper);
+  transform: scale(1.3);
 }
 
 @keyframes pieceIn {

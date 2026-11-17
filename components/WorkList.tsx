@@ -1,23 +1,25 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import { pad } from "@/lib/format";
-import { categoryLabels, type Brand, type Media as MediaItem } from "@/sanity/lib/types";
+import { categoryLabels, stillOf, type Brand, type Media as MediaItem } from "@/sanity/lib/types";
 import { Media } from "./Media";
 import { LiquidPreview } from "./motion/LiquidPreview";
 import { Shared, sharedName } from "./motion/PageTransition";
 import s from "./WorkList.module.css";
 
-// Data the WebGL preview needs to show a brand's cover: the reel itself when it's a video.
+// Data the WebGL preview needs to show a brand's cover: the reel itself when it's a video
+// (for a carousel cover, its first slide).
 function liquidData(cover?: MediaItem) {
-  if (!cover) return {};
-  if (cover.kind === "video" && cover.video) {
+  const piece = cover?.kind === "carousel" ? cover.slides?.[0] : cover;
+  if (!piece) return {};
+  if (piece.kind === "video" && piece.video) {
     return {
-      "data-liquid-src": cover.video,
+      "data-liquid-src": piece.video,
       "data-liquid-kind": "video",
-      "data-liquid-poster": cover.poster?.asset.url,
+      "data-liquid-poster": piece.poster?.asset.url,
     };
   }
-  const image = cover.image ?? cover.poster;
+  const image = stillOf(piece);
   return image ? { "data-liquid-src": `${image.asset.url}?w=640&fm=jpg&q=80`, "data-liquid-kind": "image" } : {};
 }
 

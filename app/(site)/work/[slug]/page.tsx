@@ -7,7 +7,7 @@ import { Showcase } from "@/components/case-study/Showcase";
 import { PageTransition, Shared, sharedName } from "@/components/motion/PageTransition";
 import { pad } from "@/lib/format";
 import { getPortfolio } from "@/sanity/lib/queries";
-import { categoryLabels } from "@/sanity/lib/types";
+import { categoryLabels, stillOf } from "@/sanity/lib/types";
 import s from "./page.module.css";
 
 async function getCaseStudy(slug: string) {
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
   const found = await getCaseStudy((await params).slug);
   if (!found) return {};
   const { brand } = found;
-  const cover = brand.cover?.image ?? brand.cover?.poster;
+  const cover = stillOf(brand.cover);
   return {
     title: brand.name,
     description: brand.tagline,

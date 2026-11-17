@@ -122,3 +122,13 @@
     grid-column: auto;
   }
 }
+
+/* Carousels: the frame lets the stacked cards peek out; each card clips itself. */
+.carousel .frame {
+  overflow: visible;
+  background: none;
+}
+
+.carousel .frame:hover .media {
+  transform: none;
+}

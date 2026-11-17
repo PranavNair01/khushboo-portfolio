@@ -7,6 +7,7 @@ import { Media } from "@/components/Media";
 import { prefersReducedMotion } from "@/components/motion/motion";
 import { pad } from "@/lib/format";
 import type { Media as MediaItem } from "@/sanity/lib/types";
+import { CarouselTile } from "./CarouselTile";
 import { Viewer } from "./Viewer";
 import s from "./Showcase.module.css";
 
@@ -20,7 +21,7 @@ export function Showcase({ items }: { items: MediaItem[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLSpanElement>(null);
   const barRef = useRef<HTMLSpanElement>(null);
-  const [open, setOpen] = useState<{ index: number; trigger: HTMLElement } | null>(null);
+  const [open, setOpen] = useState<{ index: number; slide: number; trigger: HTMLElement } | null>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -71,21 +72,43 @@ export function Showcase({ items }: { items: MediaItem[] }) {
 
       <div ref={trackRef} className={s.track}>
         {items.map((m, i) => (
-          <figure key={m._key ?? i} className={`${s.item} ${s[m.format]}`} data-skew>
+          <figure
+            key={m._key ?? i}
+            className={`${s.item} ${s[m.format]} ${m.kind === "carousel" ? s.carousel : ""}`}
+            data-skew
+          >
             <button
               className={s.frame}
-              onClick={(e) => setOpen({ index: i, trigger: e.currentTarget })}
+              onClick={(e) => {
+                // A carousel opens on the slide that's showing in its tile.
+                const slide = Number(e.currentTarget.querySelector<HTMLElement>("[data-slide]")?.dataset.slide ?? 0);
+                setOpen({ index: i, slide, trigger: e.currentTarget });
+              }}
               data-cursor={m.kind === "video" ? "Play" : "Open"}
-              aria-label={`Open ${m.caption ?? `piece ${i + 1}`} fullscreen`}
+              aria-label={`Open ${m.caption ?? `piece ${i + 1}`} fullscreen${
+                m.kind === "carousel" ? ` (carousel, ${m.slides?.length ?? 0} slides)` : ""
+              }`}
             >
-              <Media media={m} className={s.media} sizes="(max-width: 900px) 100vw, 30vw" />
+              {m.kind === "carousel" ? (
+                <CarouselTile media={m} className={s.media} />
+              ) : (
+                <Media media={m} className={s.media} sizes="(max-width: 900px) 100vw, 30vw" />
+              )}
             </button>
             {m.caption && <figcaption className="label">{m.caption}</figcaption>}
           </figure>
         ))}
       </div>
 
-      {open && <Viewer items={items} start={open.index} trigger={open.trigger} onClose={() => setOpen(null)} />}
+      {open && (
+        <Viewer
+          items={items}
+          start={open.index}
+          startSlide={open.slide}
+          trigger={open.trigger}
+          onClose={() => setOpen(null)}
+        />
+      )}
     </section>
   );
 }
