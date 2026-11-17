@@ -1,9 +1,10 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
-import type { Media as MediaItem, SanityImage } from "@/sanity/lib/types";
+import { stillOf, type Media as MediaItem, type SanityImage, type Slide } from "@/sanity/lib/types";
 import { LazyVideo } from "./LazyVideo";
 
 type Props = {
-  media: MediaItem;
+  media: MediaItem | Slide;
   className?: string;
   sizes?: string;
   priority?: boolean;
@@ -12,12 +13,20 @@ type Props = {
 };
 
 // Renders one piece of work: a responsive image, or a muted looping video with its poster.
+// A carousel shows its first slide here; the brand page's Showcase renders the full stack.
 export function Media({ media, className, sizes = "100vw", priority, still }: Props) {
-  if (media.kind === "video" && media.video && !still) {
-    return <LazyVideo src={media.video} poster={media.poster?.asset.url} className={className} label={media.caption} />;
+  const caption = "caption" in media ? media.caption : undefined;
+  if (media.kind === "carousel") {
+    const first = media.slides?.[0];
+    return first ? <Media media={first} className={className} sizes={sizes} priority={priority} still={still} /> : null;
   }
-  const image = media.image ?? media.poster;
-  return image ? <SanityImg image={image} className={className} sizes={sizes} priority={priority} alt={media.caption} /> : null;
+  if (media.kind === "video" && media.video && !still) {
+    return <LazyVideo src={media.video} poster={media.poster?.asset.url} className={className} label={caption} />;
+  }
+  const image = stillOf(media);
+  return image ? (
+    <SanityImg image={image} className={className} sizes={sizes} priority={priority} alt={caption} />
+  ) : null;
 }
 
 export function SanityImg({
@@ -30,6 +39,7 @@ export function SanityImg({
   className?: string;
   sizes?: string;
   priority?: boolean;
+  style?: CSSProperties;
 }) {
   const { url, width, height, lqip } = image.asset;
   return (

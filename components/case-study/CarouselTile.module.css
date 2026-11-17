@@ -1,0 +1,92 @@
+.tile {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- the stack ---------- */
+.card,
+.face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 18px 40px -20px rgb(0 0 0 / 0.45);
+}
+
+.card {
+  transition: transform 0.6s var(--ease-out);
+}
+
+.back1 {
+  transform: translate(10px, -10px) rotate(3deg);
+  filter: brightness(0.85);
+}
+
+.back2 {
+  transform: translate(20px, -18px) rotate(6deg);
+  filter: brightness(0.7);
+}
+
+/* Hovering fans the stack out a little further. */
+.tile:hover .back1 {
+  transform: translate(18px, -14px) rotate(5deg);
+}
+
+.tile:hover .back2 {
+  transform: translate(34px, -24px) rotate(10deg);
+}
+
+/* ---------- the top card: a swipeable row of slides ---------- */
+.face {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  background: #1a1a1a;
+}
+
+.face::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
+}
+
+.slide > img,
+.card > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.55);
+  color: #fff;
+  font-size: 16px;
+  transform: translate(-50%, -50%);
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.6);
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
